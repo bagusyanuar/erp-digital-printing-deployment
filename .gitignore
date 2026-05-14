@@ -1,0 +1,23 @@
+# Environment Secrets
+.env
+*.env
+
+# SSL Certificates
+docker/nginx/cert/*.pem
+docker/nginx/cert/*.key
+docker/nginx/cert/*.crt
+nginx/cert/*.pem
+nginx/cert/*.key
+nginx/cert/*.crt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+*.log
+
+# Temp
+tmp/
+temp/
