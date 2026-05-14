@@ -32,7 +32,11 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
+      # Override DB_PASSWORD jika tidak ada di .env, default tetap password123
       DB_PASSWORD: ${DB_PASSWORD:-password123}
+    volumes:
+      - ./.logs:/app/.logs
+      - ./configs:/app/configs:ro
     depends_on:
       db:
         condition: service_healthy
