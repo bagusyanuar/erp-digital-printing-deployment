@@ -10,18 +10,16 @@ SERVER_PATH="/home/dystopia/erp-digital-printing-deployment"
 echo "🚀 Memulai Deployment ke $SERVER_IP..."
 
 # 0. Safety Check
-if [ ! -f .env ]; then
-    echo "❌ Error: .env file tidak ditemukan di root!"
-    echo "💡 Copying from env/backend/.env.example..."
-    cp env/backend/.env.example .env
-    echo "⚠️  Silakan edit .env dulu, baru jalanin lagi deploy.sh nya bosku!"
+if [ ! -f env/backend/.env ]; then
+    echo "❌ Error: .env file tidak ditemukan di env/backend/!"
+    echo "⚠️  Silakan buat .env di env/backend/ dulu bosku!"
     exit 1
 fi
 
 # 1. Transfer Secrets & Certs (Manual Sync)
 echo "🔑 Mengirim .env dan certificates..."
-ssh $SERVER_USER@$SERVER_IP "mkdir -p $SERVER_PATH/nginx/cert"
-scp .env $SERVER_USER@$SERVER_IP:$SERVER_PATH/
+ssh $SERVER_USER@$SERVER_IP "mkdir -p $SERVER_PATH/env/backend $SERVER_PATH/nginx/cert"
+scp env/backend/.env $SERVER_USER@$SERVER_IP:$SERVER_PATH/env/backend/
 scp -r nginx/cert/* $SERVER_USER@$SERVER_IP:$SERVER_PATH/nginx/cert/
 
 # 2. Sync Code (Tanpa sampah .git dan file yang di-ignore)

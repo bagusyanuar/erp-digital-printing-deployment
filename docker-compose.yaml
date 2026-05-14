@@ -28,7 +28,7 @@ services:
     image: ghcr.io/bagusyanuar/erp-digital-printing-be:latest
     container_name: erp-app
     restart: unless-stopped
-    env_file: .env
+    env_file: env/backend/.env
     environment:
       DB_HOST: db
       DB_PORT: 5432
