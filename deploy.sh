@@ -2,12 +2,21 @@
 
 # --- CONFIGURATION ---
 # Ganti sesuai info server ente, bosku!
-SERVER_USER="root"
-SERVER_IP="1.2.3.4"
-SERVER_PATH="/opt/erp-digital-printing"
+SERVER_USER="dystopia"
+SERVER_IP="103.127.134.41"
+SERVER_PATH="/home/dystopia/erp-digital-printing-deployment"
 # ---------------------
 
 echo "🚀 Memulai Deployment ke $SERVER_IP..."
+
+# 0. Safety Check
+if [ ! -f .env ]; then
+    echo "❌ Error: .env file tidak ditemukan di root!"
+    echo "💡 Copying from env/backend/.env.example..."
+    cp env/backend/.env.example .env
+    echo "⚠️  Silakan edit .env dulu, baru jalanin lagi deploy.sh nya bosku!"
+    exit 1
+fi
 
 # 1. Transfer Secrets & Certs (Manual Sync)
 echo "🔑 Mengirim .env dan certificates..."
