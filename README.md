@@ -4,9 +4,17 @@ Dokumentasi untuk operasional dan maintenance backend ERP di server VPS.
 
 ## 🚀 Database Maintenance
 
-Semua perintah dijalankan dari dalam container `erp-app` agar tidak perlu instalasi tool tambahan di host VPS.
+Gunakan script shortcut agar lebih cepat:
 
-### 1. Database Migration (Up)
+1. **Migration:** `./migrate.sh`
+2. **Seeding:** `./seed.sh`
+
+> **Note:** Jangan lupa jalankan `chmod +x *.sh` saat pertama kali setup di VPS.
+
+---
+
+### Manual Commands (Jika script bermasalah)
+Semua perintah dijalankan dari dalam container `erp-app`:
 Gunakan command ini untuk memperbarui skema database ke versi terbaru:
 
 ```bash
