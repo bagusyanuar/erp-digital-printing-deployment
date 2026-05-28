@@ -28,6 +28,15 @@
 
 ### 3. First Time Deployment
 * **Gas Command**: `./deploy.sh`
+* **Run Database Migration**:
+    * Setelah deploy berhasil, jalankan migrasi database di server:
+      ```bash
+      ./migrate.sh
+      ```
+    * Jika muncul error password authentication (misal password di `.env` sudah diganti tapi DB container terlanjur dibikin pake password lama):
+      ```bash
+      docker exec -it erp-app ./migrate -path ./migrations -database "postgres://postgres:password123@db:5432/db_erp_printing?sslmode=disable" up
+      ```
 * **Verifikasi**:
     * SSH ke server.
     * Cek container: `docker ps`
@@ -35,5 +44,9 @@
 
 ### 4. Troubleshooting
 * **Database Ga Konek**: Cek `.env`, pastikan `DB_HOST` di backend pake nama service `db`.
+* **Database Auth Failed**: Jika password `.env` baru tidak match dengan db volume lama, gunakan perintah `docker exec` di atas dengan password default `password123`, atau ganti password user di postgres container:
+  ```bash
+  docker exec -it erp-db psql -U postgres -d db_erp_printing -c "ALTER USER postgres WITH PASSWORD 'password_baru_ente';"
+  ```
 * **Nginx Error**: Cek path certificate di `nginx/default.conf` sudah sesuai dengan folder `/etc/nginx/cert/` di container.
 * **Port Bentrok**: Pastikan port 80/443 di server kaga ada yang pake (misal Apache bawaan).
