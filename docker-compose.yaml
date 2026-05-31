@@ -7,8 +7,8 @@ services:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password123}
       POSTGRES_DB: ${DB_NAME:-db_erp_printing}
-    # ports:
-    #   - "${DB_PORT:-5432}:5432" # Tutup port publik, akses via internal network
+    ports:
+      - "127.0.0.1:${DB_PORT:-5432}:5432" # Bind ke localhost untuk akses via SSH Tunnel
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
