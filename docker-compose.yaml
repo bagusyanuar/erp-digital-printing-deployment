@@ -56,6 +56,19 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  frontend:
+    image: ghcr.io/bagusyanuar/erp-digital-printing:latest
+    container_name: erp-frontend
+    restart: unless-stopped
+    env_file: env/frontend/.env
+    networks:
+      - erp-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
   nginx:
     image: nginx:alpine
     container_name: erp-nginx
@@ -68,6 +81,7 @@ services:
       - ./nginx/cert:/etc/nginx/cert:ro
     depends_on:
       - app
+      - frontend
     networks:
       - erp-network
     logging:
