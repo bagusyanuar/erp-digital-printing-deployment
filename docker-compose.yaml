@@ -25,9 +25,10 @@ services:
         max-file: "3"
 
   app:
-    image: ghcr.io/bagusyanuar/erp-digital-printing-be:latest
+    image: ghcr.io/bagusyanuar/erp-digital-printing-be:${BACKEND_TAG:-dev-latest}
     container_name: erp-app
     restart: unless-stopped
+    pull_policy: always
     env_file: env/backend/.env
     environment:
       DB_HOST: db
@@ -57,9 +58,10 @@ services:
         max-file: "3"
 
   frontend:
-    image: ghcr.io/bagusyanuar/erp-digital-printing:latest
+    image: ghcr.io/bagusyanuar/erp-digital-printing:${FRONTEND_TAG:-dev-latest}
     container_name: erp-frontend
     restart: unless-stopped
+    pull_policy: always
     env_file: env/frontend/.env
     networks:
       - erp-network

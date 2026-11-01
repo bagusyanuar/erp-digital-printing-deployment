@@ -16,8 +16,11 @@ fi
 
 # 1. Transfer Secrets & Certs (Manual Sync)
 echo "🔑 Mengirim .env dan certificates..."
-ssh $SSH_ALIAS "mkdir -p $SERVER_PATH/env/backend $SERVER_PATH/nginx/cert"
+ssh $SSH_ALIAS "mkdir -p $SERVER_PATH/env/backend $SERVER_PATH/env/frontend $SERVER_PATH/nginx/cert"
 scp env/backend/.env $SSH_ALIAS:$SERVER_PATH/env/backend/
+if [ -f env/frontend/.env ]; then
+    scp env/frontend/.env $SSH_ALIAS:$SERVER_PATH/env/frontend/
+fi
 scp -r nginx/cert/* $SSH_ALIAS:$SERVER_PATH/nginx/cert/
 
 # 2. Sync Code (Tanpa sampah .git dan file yang di-ignore)
